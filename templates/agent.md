@@ -1,16 +1,6 @@
 ---
 name: {{agent名（小文字・ハイフン区切り）}}
 description: {{何をする agent か、いつ使うかを1〜2文で。対象と制約を含める}}
-tools: ["{{使うツール}}"]
-allowedTools: []
-includeMcpJson: false
-includePowers: false
-permissions:
-  rules:
-    - capability: shell
-      effect: {{ask または deny}}
-    - capability: fs_write
-      effect: {{ask または deny}}
 ---
 
 # {{agent名}}
