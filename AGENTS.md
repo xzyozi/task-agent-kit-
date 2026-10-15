@@ -34,6 +34,7 @@
 - 初期設定の手順: `SETUP.md`（設定完了後に削除される）
 - 共通の安全規約: `references/safety-baseline.md`
 - agent 定義の構造: `references/agent-anatomy.md`
+- skill の扱いと配置先: `references/skills.md`
 - 雛形: `templates/`
 - Claude Code 入口: `CLAUDE.md`（`AGENTS.md` への薄い参照）
 - Gemini CLI 入口: `GEMINI.md`（`AGENTS.md` への薄い参照）
