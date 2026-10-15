@@ -40,5 +40,5 @@ Kiro と Codex は `AGENTS.md` を直接読む。
 このリポジトリの原本を保守する場合は、`SETUP.md` を実行しない。変更前に次を確認する。
 
 - `AGENTS.md`、`SETUP.md`、`references/`、`templates/` の参照パスが実在する。
-- 穴埋め用の `{{ }}` が、`PROJECT.md`、`templates/`、`references/`、`SETUP.md`、`README.md` 以外に残っていない。
+- 中身を持つプレースホルダ（`{{` と `}}` の間に文字があるもの）が、`PROJECT.md` と `templates/` 以外に残っていない。他の文書で言及する場合は、中身のない `{{ }}` で書く。
 - 特定ドメインのサーバ、パス、コマンドを雛形や参照文書に持ち込んでいない。
