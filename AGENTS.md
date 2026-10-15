@@ -13,8 +13,12 @@
 ## 読み取りルール
 
 - 作業と無関係なファイルを推測で読まない。
-- `templates/` は、雛形を使って agent 定義や skill を作るときだけ読む。
+- `templates/` は、雛形を使って agent 定義や skill を作る・改修するときだけ読む。通常タスクでは参照も変更もしない。
 - 認証情報のファイル（`.env*`、`*.key`、`*.pem` など）を読まない。
+
+## 運用開始後の追加・変更
+
+状態が `configured` で agent 定義や skill を新規追加・変更する場合は、`references/agent-anatomy.md`（skill は `references/skills.md`）と `templates/` に従い、追加・変更したパスを `PROJECT.md` の「Canonical locations」に記録する。
 
 ## 書き込みルール
 
