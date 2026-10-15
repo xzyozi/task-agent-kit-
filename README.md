@@ -15,14 +15,15 @@
 
 ## 構成
 
-| パス                      | 役割                                                         |
-| ------------------------- | ------------------------------------------------------------ |
-| `SETUP.md`                | 最初に実行する手順。agent への指示そのもの                   |
-| `AGENTS.md`               | AI ツール共通の入口                                          |
-| `PROJECT.md`              | プロジェクトの状態と範囲（穴埋め対象）                       |
-| `CLAUDE.md` / `GEMINI.md` | Claude Code / Gemini CLI 用の薄い入口                        |
-| `references/`             | agent が参照する正本（agent 定義の構造、共通の安全規約など） |
-| `templates/`              | 穴埋めして使う agent 定義・skill の雛形                      |
+| パス                               | 役割                                                         |
+| ---------------------------------- | ------------------------------------------------------------ |
+| `SETUP.md`                         | 最初に実行する手順。agent への指示そのもの                   |
+| `AGENTS.md`                        | AI ツール共通の入口                                          |
+| `PROJECT.md`                       | プロジェクトの状態と範囲（穴埋め対象）                       |
+| `CLAUDE.md` / `GEMINI.md`          | Claude Code / Gemini CLI 用の薄い入口                        |
+| `references/`                      | agent が参照する正本（agent 定義の構造、共通の安全規約など） |
+| `templates/`                       | 穴埋めして使う agent 定義・skill の雛形                      |
+| `.gitattributes` / `.editorconfig` | 改行 LF・文字コード UTF-8 を機械的に固定する設定             |
 
 Kiro と Codex は `AGENTS.md` を直接読む。
 
@@ -39,5 +40,5 @@ Kiro と Codex は `AGENTS.md` を直接読む。
 このリポジトリの原本を保守する場合は、`SETUP.md` を実行しない。変更前に次を確認する。
 
 - `AGENTS.md`、`SETUP.md`、`references/`、`templates/` の参照パスが実在する。
-- 穴埋め用の `{{ }}` が、`PROJECT.md`、`templates/`、`references/`、`SETUP.md`、`README.md` 以外に残っていない。
+- 中身を持つプレースホルダ（`{{` と `}}` の間に文字があるもの）が、`PROJECT.md` と `templates/` 以外に残っていない。他の文書で言及する場合は、中身のない `{{ }}` で書く。
 - 特定ドメインのサーバ、パス、コマンドを雛形や参照文書に持ち込んでいない。
