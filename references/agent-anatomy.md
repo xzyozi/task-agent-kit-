@@ -3,7 +3,7 @@
 特定タスク向けの agent 定義は、2層で書く。
 
 1. **本文**: ツールに依存しない。役割、手順、境界、停止条件、完了条件を書く。
-2. **ツール別の設定**: 配置先、形式、frontmatter（または TOML）のキーを、使うツールに合わせる。
+2. **ツール別の設定**: 配置先、形式、frontmatter（または TOML）のキーを、使うツールに合わせる。ツール別の設定は、`references/agents/` のツール別の文書に書く。
 
 雛形は `templates/agent.md`。ここに書かれた構造は、複数の既存 agent（対話型と自律実行型）に共通する要素だけを抜き出したものである。
 
@@ -11,14 +11,14 @@
 
 どのツールでも、次の2つを必ず持つ。
 
-| 項目          | 書き方                                                                                                        |
-| ------------- | ------------------------------------------------------------------------------------------------------------- |
-| `name`        | 小文字・ハイフン区切り。役割が分かる名前にする。Gemini CLI は小文字・数字・ハイフン・アンダースコアのみ使える |
-| `description` | 「何をする agent か」と「いつ使うか」を1〜2文で書く。対象と制約を含める                                       |
+| 項目          | 書き方                                                                               |
+| ------------- | ------------------------------------------------------------------------------------ |
+| `name`        | 小文字・ハイフン区切り。役割が分かる名前にする。ツール別の追加の制約は、各文書に従う |
+| `description` | 「何をする agent か」と「いつ使うか」を1〜2文で書く。対象と制約を含める              |
 
 ## 1. 本文の構造（ツール共通）
 
-次の見出しをこの順で書く。不要な見出しは省略してよいが、順序は変えない。Codex では、この本文を TOML の `developer_instructions` に入れる。
+次の見出しをこの順で書く。不要な見出しは省略してよいが、順序は変えない。Codex では、この本文を TOML の `developer_instructions` に入れる（`references/agents/codex-cli.md`）。
 
 1. **役割（冒頭の1〜2文）**: 何を専門とするか、対象は何か、目的は何かを書く。
 2. **基本方針**: 作業の進め方を書く。対象を暗黙に推測しない、いきなり変更しない、など。
@@ -38,52 +38,18 @@
 - 完了条件を明記する。agent が自分で達成を確認できる形にする。
 - 実行境界・停止条件・完了条件は、ツールの権限機構だけに頼らず、本文にも必ず書く。権限機構が強制できる範囲はツールごとに違うため、本文の代わりにしない。
 
-## 2. ツール別の配置先と設定
+## 2. ツール別の文書
 
-利用者が使うツールに合わせて、次の配置先・形式で出力する。使うツールが不明な場合は、推測せず利用者に確認する。
+利用者が使うツールに合わせて、選ばれたツールの文書だけを読み、その配置先・形式・キーに従う。選ばれていないツールの文書は読まない。使うツールが不明な場合は、推測せず利用者に確認する。
 
-| ツール      | 配置先                      | 形式                     | 本文の置き場所                |
-| ----------- | --------------------------- | ------------------------ | ----------------------------- |
-| Kiro        | `.kiro/agents/<name>.md`    | Markdown + frontmatter   | frontmatter の後の本文        |
-| Claude Code | `.claude/agents/<name>.md`  | Markdown + frontmatter   | frontmatter の後の本文        |
-| Gemini CLI  | `.gemini/agents/<name>.md`  | Markdown + frontmatter   | frontmatter の後の本文        |
-| Codex CLI   | `.codex/agents/<name>.toml` | TOML（1ファイル1 agent） | `developer_instructions` の値 |
+| ツール      | 文書                               |
+| ----------- | ---------------------------------- |
+| Kiro        | `references/agents/kiro.md`        |
+| Claude Code | `references/agents/claude-code.md` |
+| Gemini CLI  | `references/agents/gemini-cli.md`  |
+| Codex CLI   | `references/agents/codex-cli.md`   |
 
-`templates/agent.md` は Markdown のままにする。Codex を選んだ場合だけ、雛形の本文を `developer_instructions` に入れた `.toml` に変換して出力する。
-
-`developer_instructions` には、TOML の複数行リテラル文字列（`'''` で囲む。エスケープ不要）を使う。本文に `'''` が含まれる場合だけ、複数行基本文字列（`"""`）に切り替え、`\` と `"` をエスケープする。出力後は TOML として構文が正しいことを確認する。
-
-### 使うキーと権限の制御場所
-
-使うキーは、この表にあるものだけにする。表にないキーは、公式の仕様で実在を確認できるまで使わない。
-
-| ツール      | 使うキー                                                                   | 権限の制御場所                                                                                                    |
-| ----------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| Kiro        | `tools`、`excludedTools`、`includeMcpJson`、`includePowers`、`permissions` | agent 内の `permissions.rules`（`capability` / `match` / `effect`）                                               |
-| Claude Code | `tools`、`disallowedTools`、`permissionMode`                               | コマンド単位の allow / ask / deny は `.claude/settings.json` に書く。agent 定義側では書けない                     |
-| Gemini CLI  | `tools`、`mcpServers`、`max_turns`                                         | Policy Engine（`~/.gemini/policies/*.toml`）。agent 定義側に approval に相当するキーは確認できていない            |
-| Codex CLI   | `model`、`features.* = false`（機能の無効化）                              | sandbox と approval は親セッションから継承し、agent ファイルでは上書きできない。コマンド許可は `rules` で制御する |
-
-### Kiro の権限の書き方
-
-`effect` は `allow` / `ask` / `deny` の3つを使える。複数に一致した場合の優先順位は `deny` > `ask` > `allow`。
-
-- `allow`: 対象範囲内の読み取りと、副作用のない確認コマンド。
-- `ask`: 副作用のある操作。
-- `deny`: 対象範囲外の操作と、危険な操作。
-
-権限は最小にする。読み取りだけで足りるタスクには、書き込みと実行の権限を与えない。すべてを `ask` にすると承認が増えて使いにくくなるため、安全に確認できる操作は `allow` にする。
-
-`capability` の名前は、`shell`、`fs_write`、`fs_read` を使う。ほかの名前は、Kiro の公式の権限文書で実在を確認してから使う。
-
-### Kiro の `tools`（必須）
-
-Kiro の定義には、`tools` を必ず書く。省略すると、ツールを何も使えない agent になる恐れがある。Kiro の GitHub Issue（kirodotdev/Kiro #7839）に、省略した agent がファイルを読めず、読んだふりをした報告がある。報告は CLI 2.1.0 の JSON 形式のもので、IDE での挙動は未確認である。
-
-- 値には、IDE 1.0 の Markdown 形式の例で使われている短縮タグ `read`、`write`、`shell`、`web` を使う。公式の一覧は取得できていない（第三者のサンプルで確認した）。
-- 読み取り専用の agent には、`tools: [read]` のように、必要な最小のタグだけを書く。`["*"]` は使わない。
-- タグの意味が確認できない場合は、推測で別のタグを足さず、確認できなかったと報告する。
-- `tools` は使えるツールを決め、`permissions` は使えるツールの許可・確認・拒否を決める。役割が違うため、両方を書く。
+`templates/agent.md` は Markdown のままにする。
 
 ### 複数のツールを併用する場合
 
