@@ -23,6 +23,7 @@
 | `CLAUDE.md` / `GEMINI.md`          | Claude Code / Gemini CLI 用の薄い入口                        |
 | `references/`                      | agent が参照する正本（agent 定義の構造、共通の安全規約など） |
 | `templates/`                       | 穴埋めして使う agent 定義・skill の雛形                      |
+| `maintenance/`                     | テンプレート自体の保守用。通常の作業では読まない             |
 | `.gitattributes` / `.editorconfig` | 改行 LF・文字コード UTF-8 を機械的に固定する設定             |
 
 Kiro と Codex は `AGENTS.md` を直接読む。
@@ -37,9 +38,4 @@ Kiro と Codex は `AGENTS.md` を直接読む。
 
 ## テンプレート自体の保守
 
-このリポジトリの原本を保守する場合は、`SETUP.md` を実行しない。変更前に次を確認する。
-
-- `AGENTS.md`、`SETUP.md`、`references/`、`templates/` の参照パスが実在する。
-- 中身を持つプレースホルダ（`{{` と `}}` の間に文字があるもの）が、`PROJECT.md` と `templates/` 以外に残っていない。他の文書で言及する場合は、中身のない `{{ }}` で書く。
-- 特定ドメインのサーバ、パス、コマンドを雛形や参照文書に持ち込んでいない。
-- `SETUP.md` への言及は、`SETUP.md` 自身、`AGENTS.md`、`README.md`、`references/skills.md` の同梱表に限る。それ以外の参照文書に書くと、`SETUP.md` の削除後に参照先が失われる。
+このリポジトリの原本を保守する場合は、`SETUP.md` を実行しない。`maintenance/MAINTENANCE.md` に従う。
