@@ -18,7 +18,7 @@
 
 ## 運用開始後の追加・変更
 
-状態が `configured` で agent 定義や skill を新規追加・変更する場合は、`references/agent-anatomy.md`（skill は `references/skills.md`）と `templates/` に従い、追加・変更したパスを `PROJECT.md` の「Canonical locations」に記録する。
+状態が `configured` で agent 定義や skill を新規追加・変更する場合は、`references/agent-anatomy.md` と、使うツールの `references/agents/` の文書（skill は `references/skills.md`）と `templates/` に従い、追加・変更したパスを `PROJECT.md` の「Canonical locations」に記録する。
 
 ## 書き込みルール
 
@@ -34,6 +34,7 @@
 - 初期設定の手順: `SETUP.md`（設定完了後に削除される）
 - 共通の安全規約: `references/safety-baseline.md`
 - agent 定義の構造: `references/agent-anatomy.md`
+- ツール別の配置先・キー・権限: `references/agents/`（`kiro.md`、`claude-code.md`、`gemini-cli.md`、`codex-cli.md`）
 - skill の扱いと配置先: `references/skills.md`
 - 雛形: `templates/`
 - Claude Code 入口: `CLAUDE.md`（`AGENTS.md` への薄い参照）

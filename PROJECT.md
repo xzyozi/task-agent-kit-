@@ -18,15 +18,15 @@
 
 ## Canonical locations
 
-| 内容                   | 保存先                          |
-| ---------------------- | ------------------------------- |
-| 入口と共通方針         | `AGENTS.md`                     |
-| プロジェクトの現在状態 | `PROJECT.md`                    |
-| 共通の安全規約         | `references/safety-baseline.md` |
-| agent 定義の書き方     | `references/agent-anatomy.md`   |
-| 雛形                   | `templates/`                    |
-| このタスク固有の鉄則   | {{保存先}}                      |
-| agent 定義             | {{保存先}}                      |
+| 内容                   | 保存先                                              |
+| ---------------------- | --------------------------------------------------- |
+| 入口と共通方針         | `AGENTS.md`                                         |
+| プロジェクトの現在状態 | `PROJECT.md`                                        |
+| 共通の安全規約         | `references/safety-baseline.md`                     |
+| agent 定義の書き方     | `references/agent-anatomy.md`、`references/agents/` |
+| 雛形                   | `templates/`                                        |
+| このタスク固有の鉄則   | {{保存先}}                                          |
+| agent 定義             | {{保存先}}                                          |
 
 ## Change policy
 

@@ -30,12 +30,14 @@
 3. 読み取り専用にする対象と、変更してよい対象は何か。
 4. 承認が必要な操作と、禁止する操作は何か。
 5. 使うコマンド・ツールは何か（実在することを確認できるものだけ）。
-6. 使うツールは何か（Kiro、Claude Code、Gemini CLI、Codex CLI。複数可）。配置先と形式は、`references/agent-anatomy.md` と `references/skills.md` の表から決まる。
+6. 使うツールは何か（Kiro、Claude Code、Gemini CLI、Codex CLI。複数可）。agent 定義の配置先と形式は `references/agents/` のツール別の文書から、skill の配置先は `references/skills.md` の表から決まる。
 7. agent の名前とプロジェクト名は何か（プロジェクト名は `PROJECT.md` の見出しに使う）。
 8. 対話型か、自律実行型か。迷う場合は対話型を提案する。
 9. 認証情報を扱う場合は、環境変数の名前は何か。実値は聞かない。
 
 回答が不明確な項目は、推測で埋めず、再度質問する。
+
+項目6の回答を受け取ったら、選ばれたツールの文書だけを読む（`references/agent-anatomy.md` の「ツール別の文書」の表）。選ばれていないツールの文書は読まない。文書が存在しない場合は、停止して報告する。
 
 ## 2. 計画の提示と承認
 
@@ -51,7 +53,7 @@
 承認後に、次の順で行う。
 
 1. `PROJECT.md` の `{{ }}` を、確認した内容で置き換える。
-2. `templates/agent.md` を元に、使うツールの配置先へ agent 定義を作成する。`{{ }}` をすべて置き換える。ツール固有のキーは、`references/agent-anatomy.md` の表にあるものだけを追加する。Codex CLI を選んだ場合は、本文を `developer_instructions` に入れた `.toml` として出力する。複数のツールを使う場合は、ツールごとに作成する。
+2. `templates/agent.md` を元に、使うツールの配置先へ agent 定義を作成する。`{{ }}` をすべて置き換える。配置先、形式、ツール固有のキーは、選ばれたツールの文書（`references/agents/`）に従い、そこに書かれたキーだけを追加する。複数のツールを使う場合は、ツールごとに作成する。
 3. タスクの手順を別ファイルに分ける必要がある場合だけ、`templates/skill.md` を元に、`references/skills.md` の表の配置先へ作成する。
 4. 作成したすべての配置先のパスを、`PROJECT.md` の「Canonical locations」に記録する。
 5. このタスク固有の鉄則がある場合は、`PROJECT.md` の「Canonical locations」に記載した場所へ書く。`references/safety-baseline.md` は変更しない。
@@ -64,9 +66,9 @@
 - 作成したファイルが参照するパスが、すべて実在する。
 - 作成したファイルが UTF-8（BOM なし）/ LF である。
 - agent 定義が `references/agent-anatomy.md` の本文構造に従っている。
-- agent 定義が、使うツールの配置先と形式で出力され、使っているキーが対応表にあるものだけである。
+- agent 定義が、使うツールの配置先と形式で出力され、使っているキーが選ばれたツールの文書にあるものだけである。
 - agent 定義に、停止条件と完了条件が書かれている。
-- Kiro の定義に `tools` があり、agent の目的に必要な最小のタグだけが書かれている（`references/agent-anatomy.md` の「Kiro の `tools`」）。
+- Kiro の定義に `tools` があり、agent の目的に必要な最小のタグだけが書かれている（`references/agents/kiro.md` の「`tools`（必須）」）。
 
 ツールが生成した定義を実際に読み込み、ツールを使えるかは、この手順では確認できない。報告で、使うツールで1回動かして、ファイルの読み取りなどが実際にできることを確認するよう、利用者に伝える。
 
