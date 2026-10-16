@@ -28,6 +28,16 @@
 
 `capability` の名前は、`shell`、`fs_write`、`fs_read` を使う。ほかの名前は、Kiro の公式の権限文書で実在を確認してから使う。
 
+`match` は、文字列ではなくリストで書く。文字列で書くと、Kiro がその agent 定義を認識せず、ローカルエージェントの一覧に出ない（Kiro IDE での試用で確認した）。
+
+```yaml
+permissions:
+  rules:
+    - capability: shell
+      match: ["**"]
+      effect: deny
+```
+
 ## `tools`（必須）
 
 Kiro の定義には、`tools` を必ず書く。省略すると、ツールを何も使えない agent になる恐れがある。Kiro の GitHub Issue（kirodotdev/Kiro #7839）に、省略した agent がファイルを読めず、読んだふりをした報告がある。報告は CLI 2.1.0 の JSON 形式のもので、IDE での挙動は未確認である。
