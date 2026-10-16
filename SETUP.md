@@ -86,8 +86,9 @@
 1. `AGENTS.md` の、`SETUP.md` を実行する旨の行（作業開始時の手順 2 と、正本の `SETUP.md` の行）を削除する。
 2. `references/skills.md` の「同梱するもの」から `SETUP.md` の行を削除する。表が空になる場合は、表ごと「同梱するものはない」の1行に置き換える。
 3. `README.md` の扱いをユーザーに確認する。選択肢は、対象プロジェクトの概要（`PROJECT.md` の要約）への書き換え、`SETUP.md` への言及だけの除去、そのまま残す、の3つ。確認した内容だけを実行する。
-4. `PROJECT.md` の状態を `configured` に更新する。
-5. `SETUP.md` を削除する。
+4. `maintenance/` を削除するかをユーザーに確認する。削除する場合は、`maintenance/` と、`AGENTS.md` の `maintenance/` に関する行（読み取りルールと正本の各1行）と、`README.md` に `maintenance/` に関する記述が残っていれば、その記述も削除する。残す場合は、何もしない。
+5. `PROJECT.md` の状態を `configured` に更新する。
+6. `SETUP.md` を削除する。
 
 `templates/` は、後から agent や skill を追加するために残す。削除するかどうかはユーザーが決める。
 
