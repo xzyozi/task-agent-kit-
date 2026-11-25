@@ -7,6 +7,11 @@
 - 特定ドメインのサーバ、パス、コマンドを雛形や参照文書に持ち込んでいない。
 - `SETUP.md` への言及は、`SETUP.md` 自身、`AGENTS.md`、`README.md`、`references/skills.md` の同梱表、`maintenance/` に限る。それ以外の参照文書に書くと、`SETUP.md` の削除後に参照先が失われる。
 
+## ブランチと PR
+
+- 統合先は `develop` とする。作業ブランチは `develop` から作成し、PR の base も `develop` にする。
+- `main` への反映は、`develop` から `main` への PR で行う。作業ブランチから `main` へ直接 PR を出さない。
+
 ## 変更後の動作確認
 
 初期設定の流れを実際に試すときは、元のリポジトリを汚さないよう、使い捨ての試用コピーで行う。
